@@ -5,13 +5,15 @@ import FileList from './components/FileList';
 import axios from 'axios';
 
 const App = () => {
+  
+  const baseURL  = 'http://localhost:5000'
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   useEffect(() => {
     // Fetch uploaded files from S3
     const fetchFiles = async () => {
       try {
-        const response = await axios.get('/api/files');
+        const response = await axios.create({baseURL: baseURL}).get('/api/files');
         setUploadedFiles(response.data);
       } catch (error) {
         console.error('Error fetching files:', error);
