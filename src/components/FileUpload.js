@@ -3,7 +3,7 @@ import { Button, Paper } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 
-const FileUpload = ({ onFileUpload }) => {
+const FileUpload = ({baseURL, onFileUpload }) => {
   const [file, setFile] = useState(null);
 
   const onDrop = (acceptedFiles) => {
@@ -15,7 +15,7 @@ const FileUpload = ({ onFileUpload }) => {
       const formData = new FormData();
       formData.append('file', file);
 
-      const response = await axios.post('/api/upload', formData);
+      const response = await axios.post(`${baseURL}/api/upload`, formData);
       onFileUpload(response.data.key);
     } catch (error) {
       console.error('Error uploading file:', error);

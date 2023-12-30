@@ -36,7 +36,7 @@ const App = () => {
       <Typography variant="h4" align="center" gutterBottom>
         S3 File Upload with React and Material-UI
       </Typography>
-      <FileUpload onFileUpload={handleFileUpload} />
+      <FileUpload baseURL={baseURL} onFileUpload={handleFileUpload} />
       <FileList files={uploadedFiles} />
     </Container>
   );
