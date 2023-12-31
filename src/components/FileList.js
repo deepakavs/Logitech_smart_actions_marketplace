@@ -1,6 +1,6 @@
 import React from 'react';
 import {styled } from '@mui/system';
-import { Card, Typography, IconButton, Button, Stack } from '@mui/material';
+import {Grid, Box, Card, Typography, IconButton, Button, Stack } from '@mui/material';
 import { CloudDownload, Favorite } from '@mui/icons-material'; // Import the necessary icons
 import { useState} from 'react';
 
@@ -10,24 +10,22 @@ const ThumbnailContainer = styled('div')({
   gap: 20,
 });
 
-const ThumbnailCard = styled(Card)({
-  width: 250, // Adjust the width as needed
+const ThumbnailBox = styled('div')({
   height: 200, // Fixed height for a square shape
   display: 'flex',
+  flexWrap: 'wrap',
   flexDirection: 'column',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
   alignItems: 'center',
+  border: '1px solid #ffffff', // White border for cards
   borderRadius: 5,
 });
 const IconMenu = styled('div')({
   position: 'absolute',
-  top: 0,
-  left: 0,
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  padding: '8px',
 });
 
 // Explicitly set the color for IconButton components
@@ -38,22 +36,12 @@ const WhiteIconButton = styled(IconButton)({
   },
 });
 
-const IconTextWrapper = styled('div')({
-  marginLeft: '4px', // Add margin to create separation
-});
-
 const IconSet = styled('div')({
   display: 'flex', // Make the container a flex container
   alignItems: 'center', // Align items in a row
   marginLeft: 'auto', // Push the Avatar to the far right
   justifyContent: 'space-between', 
 });
-const CardContent = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-});
-
 const FileList = ({ baseURL, files }) => {
   const [likedFiles, setLikedFiles] = useState(new Set());
   const downloadBaseUrl = baseURL.concat('/api/download');
@@ -69,10 +57,19 @@ const FileList = ({ baseURL, files }) => {
   };
 
   return (
-    <ThumbnailContainer>
+    <Grid container
+    direction="row"
+    justifyContent="center"
+    alignItems="center" spacing={4} >
       {files.map(file => (
-          <ThumbnailCard key={file.name}>
-          <IconMenu>
+          <Grid item xs={4} key={file.name}>
+          <ThumbnailBox>
+          <Stack
+            direction="column"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={5}>
+              <IconMenu>
             <IconSet>
               <WhiteIconButton>
                   <CloudDownload />
@@ -89,22 +86,20 @@ const FileList = ({ baseURL, files }) => {
               <Typography variant="caption">123</Typography>
             </IconSet>
           </IconMenu>
-          <Stack
-            direction="column"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={2}>
-            <Typography variant="h6" align="center" fontWeight="bold">
+          <Card>     
+          <Typography variant="h6" align="center" fontWeight="bold">
               {file.metadata.displayname}
             </Typography>
+          </Card>
             <Button href={`${downloadBaseUrl}/${file.name}`} color="secondary" variant='outlined'
             style={{marginBottom:'1px'}}>
                   <Typography>Get</Typography>
               </Button>
           </Stack>
-        </ThumbnailCard>
+          </ThumbnailBox>
+        </Grid>
       ))}
-    </ThumbnailContainer>
+    </Grid>
   );
 };
 

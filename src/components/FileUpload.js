@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Paper } from '@mui/material';
+import { Stack, Button, Paper } from '@mui/material';
 import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
-import {styled} from '@mui/system';
+import { styled } from '@mui/system';
 
 const FileUploadContainer = styled('div')({
   display: 'flex',
@@ -11,7 +11,7 @@ const FileUploadContainer = styled('div')({
   justifyContent: 'space-between',
 });
 
-const FileUpload = ({baseURL, onFileUpload }) => {
+const FileUpload = ({ baseURL, onFileUpload }) => {
   const [file, setFile] = useState(null);
 
   const onDrop = (acceptedFiles) => {
@@ -39,17 +39,27 @@ const FileUpload = ({baseURL, onFileUpload }) => {
   return (
     <Paper elevation={3} style={{ padding: 20, margin: 20 }}>
       <FileUploadContainer>
-      <div {...getRootProps()} style={{border: '2px dashed #008080',  padding: 20, borderRadius: 5, }}>
-        <input {...getInputProps()} />
-        <p>Drag/Select the Smart Actions JSON file exported from Options+ software</p>
-        {file && (<p>Selected File: {file.name}</p>)}
-      </div>
-        <div>
-          <Button variant="contained" color="primary" disabled={!file} onClick={uploadFile}>
-            Upload
-          </Button>
-        </div>
-        </FileUploadContainer>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+          spacing={2}
+        >
+          <div {...getRootProps()} style={{ border: '2px dashed #008080', padding: 20, borderRadius: 5, }}>
+            <input {...getInputProps()} />
+            <p>Drag/Select the Smart Actions JSON file exported from Options+ software</p>
+            {file && (<p>Selected File: {file.name}</p>)}
+          </div>
+          <div>
+            <Button variant="contained" color="primary" disabled={!file} onClick={uploadFile}>
+              Upload
+            </Button>
+          </div>
+
+
+        </Stack>
+
+      </FileUploadContainer>
     </Paper>
   );
 };

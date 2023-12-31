@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createTheme, ThemeProvider, styled } from '@mui/material';
 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const theme = createTheme({
@@ -27,8 +28,7 @@ const theme = createTheme({
     MuiCard: {
       styleOverrides: {
         root: {
-          border: '1px solid #ffffff', // White border for cards
-          position: 'relative',
+          background: '#000000',
         }
       }
     }
