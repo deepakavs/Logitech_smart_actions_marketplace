@@ -21,11 +21,11 @@ const App = () => {
     };
 
     fetchFiles();
-  }, []); // Run once on component mount
+  }, [uploadedFiles]); // Run once on component mount
 
-  const handleFileUpload = (key) => {
+  const handleFileUpload = (name) => {
     setUploadedFiles((prevFiles) => [
-      { key, uploadedAt: new Date().toLocaleString() },
+      { name},
       ...prevFiles,
     ]);
   };
@@ -37,7 +37,7 @@ const App = () => {
         S3 File Upload with React and Material-UI
       </Typography>
       <FileUpload baseURL={baseURL} onFileUpload={handleFileUpload} />
-      <FileList files={uploadedFiles} />
+      <FileList  baseURL={baseURL} files={uploadedFiles} />
     </Container>
   );
 };

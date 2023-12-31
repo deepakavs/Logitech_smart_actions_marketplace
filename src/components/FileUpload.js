@@ -24,7 +24,11 @@ const FileUpload = ({baseURL, onFileUpload }) => {
       formData.append('file', file);
 
       const response = await axios.post(`${baseURL}/api/upload`, formData);
-      onFileUpload(response.data.key);
+      if (response.status === 200) {
+        console.log('File uploaded successfully');
+        setFile(null);
+      }
+      onFileUpload(response.data.name);
     } catch (error) {
       console.error('Error uploading file:', error);
     }

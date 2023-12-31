@@ -13,6 +13,9 @@ const theme = createTheme({
     primary: {
       main: '#008080', // Teal color for buttons
     },
+    secondary: {
+      main: '#ffffff', // White color for buttons
+    },
     text: {
       primary: '#ffffff', // White text
     },

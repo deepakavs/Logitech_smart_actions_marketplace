@@ -1,8 +1,9 @@
 import React from 'react';
 import {styled } from '@mui/system';
-import { Card, Typography, IconButton } from '@mui/material';
-import { Download, Favorite } from '@mui/icons-material'; // Import the necessary icons
+import { Card, Typography, IconButton, Button, Stack } from '@mui/material';
+import { CloudDownload, Favorite } from '@mui/icons-material'; // Import the necessary icons
 import { useState} from 'react';
+
 const ThumbnailContainer = styled('div')({
   display: 'flex',
   flexWrap: 'wrap',
@@ -47,9 +48,15 @@ const IconSet = styled('div')({
   marginLeft: 'auto', // Push the Avatar to the far right
   justifyContent: 'space-between', 
 });
+const CardContent = styled('div')({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+});
 
-const FileList = ({ files }) => {
+const FileList = ({ baseURL, files }) => {
   const [likedFiles, setLikedFiles] = useState(new Set());
+  const downloadBaseUrl = baseURL.concat('/api/download');
 
   const toggleLike = (fileKey) => {
     const newLikedFiles = new Set(likedFiles);
@@ -64,27 +71,37 @@ const FileList = ({ files }) => {
   return (
     <ThumbnailContainer>
       {files.map(file => (
-          <ThumbnailCard key={file.key}>
+          <ThumbnailCard key={file.name}>
           <IconMenu>
             <IconSet>
               <WhiteIconButton>
-                <Download />
+                  <CloudDownload />
               </WhiteIconButton>
               <Typography variant="caption">123</Typography>
             </IconSet>
             <IconSet>
               <WhiteIconButton
-                                onClick={() => toggleLike(file.key)}
-                                style={{ color: likedFiles.has(file.key) ? '#FF0000' : '#ffffff' }}
+                                onClick={() => toggleLike(file.name)}
+                                style={{ color: likedFiles.has(file.name) ? '#FF0000' : '#ffffff' }}
                               >
                 <Favorite />
               </WhiteIconButton>
               <Typography variant="caption">123</Typography>
             </IconSet>
           </IconMenu>
-          <Typography variant="h6" align="center" fontWeight="bold">
-            {file.key}
-          </Typography>
+          <Stack
+            direction="column"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}>
+            <Typography variant="h6" align="center" fontWeight="bold">
+              {file.metadata.displayname}
+            </Typography>
+            <Button href={`${downloadBaseUrl}/${file.name}`} color="secondary" variant='outlined'
+            style={{marginBottom:'1px'}}>
+                  <Typography>Get</Typography>
+              </Button>
+          </Stack>
         </ThumbnailCard>
       ))}
     </ThumbnailContainer>
