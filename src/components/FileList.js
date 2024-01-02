@@ -12,6 +12,7 @@ const ThumbnailContainer = styled('div')({
 
 const ThumbnailBox = styled('div')({
   height: 200, // Fixed height for a square shape
+  minWidth: 200, // Fixed width for a square shape
   display: 'flex',
   flexWrap: 'wrap',
   flexDirection: 'column',
@@ -60,42 +61,43 @@ const FileList = ({ baseURL, files }) => {
     <Grid container
     direction="row"
     justifyContent="center"
-    alignItems="center" spacing={4} >
+    alignItems="center" spacing={2} >
       {files.map(file => (
           <Grid item xs={4} key={file.name}>
           <ThumbnailBox>
-          <Stack
-            direction="column"
-            justifyContent="space-between"
-            alignItems="center"
-            spacing={5}>
-              <IconMenu>
-            <IconSet>
-              <WhiteIconButton>
-                  <CloudDownload />
-              </WhiteIconButton>
-              <Typography variant="caption">123</Typography>
-            </IconSet>
-            <IconSet>
-              <WhiteIconButton
-                                onClick={() => toggleLike(file.name)}
-                                style={{ color: likedFiles.has(file.name) ? '#FF0000' : '#ffffff' }}
-                              >
-                <Favorite />
-              </WhiteIconButton>
-              <Typography variant="caption">123</Typography>
-            </IconSet>
-          </IconMenu>
-          <Card>     
-          <Typography variant="h6" align="center" fontWeight="bold">
-              {file.metadata.displayname}
-            </Typography>
-          </Card>
-            <Button href={`${downloadBaseUrl}/${file.name}`} color="secondary" variant='outlined'
-            style={{marginBottom:'1px'}}>
-                  <Typography>Get</Typography>
-              </Button>
-          </Stack>
+            <Stack
+              direction="column"
+              justifyContent="space-between"
+              alignItems="center"
+              spacing={5}>
+                <IconMenu>
+              <IconSet>
+                <WhiteIconButton>
+                    <CloudDownload />
+                </WhiteIconButton>
+                <Typography variant="caption">123</Typography>
+              </IconSet>
+
+              <IconSet>
+                <WhiteIconButton
+                                  onClick={() => toggleLike(file.name)}
+                                  style={{ color: likedFiles.has(file.name) ? '#FF0000' : 'primary' }}
+                                >
+                  <Favorite />
+                </WhiteIconButton>
+                <Typography variant="caption">123</Typography>
+              </IconSet>
+            </IconMenu>
+            <Card>     
+            <Typography variant="h6" align="center" fontWeight="bold">
+                {file.metadata && file.metadata.displayname}
+              </Typography>
+            </Card>
+              <Button href={`${downloadBaseUrl}/${file.name}`} color="secondary" variant='outlined'
+              style={{marginBottom:'1px'}}>
+                    <Typography>Get</Typography>
+                </Button>
+            </Stack>
           </ThumbnailBox>
         </Grid>
       ))}

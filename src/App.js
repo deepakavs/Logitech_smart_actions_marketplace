@@ -10,26 +10,30 @@ const App = () => {
   const baseURL  = 'http://localhost:5000'
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
-  useEffect(() => {
-    // Fetch uploaded files from S3
-    const fetchFiles = async () => {
-      try {
-        const response = await axios.create({baseURL: baseURL}).get('/api/files');
-        setUploadedFiles(response.data);
-      } catch (error) {
-        console.error('Error fetching files:', error);
-      }
-    };
-
-    fetchFiles();
-  }, [uploadedFiles]); // Run once on component mount
-
-  const handleFileUpload = (name) => {
+  
+  const handleFileUpload = async (name) => {
     setUploadedFiles((prevFiles) => [
       { name},
       ...prevFiles,
     ]);
+
+    // Trigger a refresh of the file list from the server
+    const response = await axios.create({ baseURL: baseURL }).get('/api/files');
+    setUploadedFiles(response.data.blobItems);
   };
+  useEffect(() => {
+    // Fetch uploaded files from Azure Blob store
+    const fetchFiles = async () => {
+      try {
+        const response = await axios.create({baseURL: baseURL}).get('/api/files');
+        setUploadedFiles(response.data.blobItems);
+      } catch (error) {
+        console.error('Error fetching files:', error);
+      }
+    };
+    fetchFiles();
+  },[]); // Run once on component mount
+
 
   return (
     <Container component="main" maxWidth="lg" style={{paddingTop:40}}>
@@ -40,7 +44,7 @@ const App = () => {
   alignItems="center" spacing={2}>
         <Grid item xs={12}>
         <Typography variant="h4" align="center" gutterBottom>
-       Logitech  <Typography color="primary"  variant="h4" style={{display:'inline', fontWeight:'bold', fontFamily: "'Noto Sans KR', sans-serif"}}> <TaskAltIcon fontSize="large"/> SMART ACTIONS</Typography> Templates
+       Logitech  <Typography color="primary" style={{display:'inline', fontWeight:'bold', fontFamily: "'Noto Sans KR', sans-serif"}}> <TaskAltIcon fontSize="large"/> SMART ACTIONS</Typography> Templates
       </Typography>
         </Grid>
         <Grid item xs={12}>
