@@ -1,8 +1,8 @@
 import React from 'react';
 import {styled } from '@mui/system';
-import {Grid, Box, Card, Typography, IconButton, Button, Stack } from '@mui/material';
+import {Grid, Box, Card, Typography, IconButton, Button, Stack, TextField } from '@mui/material';
 import { CloudDownload, Favorite } from '@mui/icons-material'; // Import the necessary icons
-import { useState} from 'react';
+import { useState, useEffect} from 'react';
 
 const ThumbnailContainer = styled('div')({
   display: 'flex',
@@ -46,7 +46,16 @@ const IconSet = styled('div')({
 const FileList = ({ baseURL, files }) => {
   const [likedFiles, setLikedFiles] = useState(new Set());
   const downloadBaseUrl = baseURL.concat('/api/download');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortOrder, setSortOrder] = useState('asc');
 
+    const [filteredAndSortedFiles,setfilteredAndSortedFiles] = useState(files);
+    const handleSearchChange = (event) => {
+      setSearchQuery(event.target.value);
+    };
+  const handleSortChange = () => {
+    setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
+  };
   const toggleLike = (fileKey) => {
     const newLikedFiles = new Set(likedFiles);
     if (newLikedFiles.has(fileKey)) {
@@ -57,12 +66,30 @@ const FileList = ({ baseURL, files }) => {
     setLikedFiles(newLikedFiles);
   };
 
+  useEffect(() => {
+    const f = files.filter((file) => file.metadata.displayname.toLowerCase().includes(searchQuery.toLowerCase())).sort((a, b) => {
+      const order = sortOrder === 'asc' ? 1 : -1;
+      return order * a.metadata.displayname.localeCompare(b.metadata.displayname);
+    });
+    setfilteredAndSortedFiles(f);
+  },[searchQuery]);
+ 
+
   return (
     <Grid container
     direction="row"
     justifyContent="center"
     alignItems="center" spacing={2} >
-      {files.map(file => (
+      <Grid item xs={6}>
+        <TextField id="outlined-basic" label="Search Templates" variant="outlined" fullWidth  onChange={handleSearchChange} />
+      </Grid>
+      <Grid item xs={6}>
+        <Grid item xs={3}>
+        </ Grid>
+        <Grid item xs={3}>
+        </ Grid>
+      </Grid>
+      {filteredAndSortedFiles.map(file => (
           <Grid item xs={4} key={file.name}>
           <ThumbnailBox>
             <Stack
