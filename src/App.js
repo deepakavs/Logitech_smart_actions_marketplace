@@ -10,27 +10,25 @@ const App = () => {
   const baseURL  = 'http://localhost:5000'
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
-  
+  // Fetch uploaded files from Azure Blob store
+  const fetchFiles = async () => {
+    try {
+      const response = await axios.create({baseURL: baseURL}).get('/api/files');
+      setUploadedFiles(response.data.blobItems);
+    } catch (error) {
+      console.error('Error fetching files:', error);
+    }
+  };
+     
   const handleFileUpload = async (name) => {
     setUploadedFiles((prevFiles) => [
       { name},
       ...prevFiles,
     ]);
-
-    // Trigger a refresh of the file list from the server
-    const response = await axios.create({ baseURL: baseURL }).get('/api/files');
-    setUploadedFiles(response.data.blobItems);
+  fetchFiles();
   };
+  
   useEffect(() => {
-    // Fetch uploaded files from Azure Blob store
-    const fetchFiles = async () => {
-      try {
-        const response = await axios.create({baseURL: baseURL}).get('/api/files');
-        setUploadedFiles(response.data.blobItems);
-      } catch (error) {
-        console.error('Error fetching files:', error);
-      }
-    };
     fetchFiles();
   },[]); // Run once on component mount
 
