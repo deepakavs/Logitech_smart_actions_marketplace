@@ -47,15 +47,22 @@ const FileList = ({ baseURL, files }) => {
   const [likedFiles, setLikedFiles] = useState(new Set());
   const downloadBaseUrl = baseURL.concat('/api/download');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortOrder, setSortOrder] = useState('asc');
+  const [nameSortOrder, setNameSortOrder] = useState('asc');
+  const [dateSortOrder, setDateSortOrder] = useState('desc');
+  const [sortType, setSortType] = useState('name');
 
-    const [filteredAndSortedFiles,setfilteredAndSortedFiles] = useState(files);
+  //  const [filteredAndSortedFiles,setfilteredAndSortedFiles] = useState(files);
     const handleSearchChange = (event) => {
       setSearchQuery(event.target.value);
     };
-  const handleSortChange = () => {
-    setSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
-  };
+    const handleSortChange = (sortType) => {
+      setSortType(sortType);
+      if (sortType === 'name') {
+        setNameSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
+      } else if (sortType === 'date') {
+        setDateSortOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
+      }
+    };
   const toggleLike = (fileKey) => {
     const newLikedFiles = new Set(likedFiles);
     if (newLikedFiles.has(fileKey)) {
@@ -66,14 +73,31 @@ const FileList = ({ baseURL, files }) => {
     setLikedFiles(newLikedFiles);
   };
 
-  useEffect(() => {
-    const f = files.filter((file) => file.metadata.displayname.toLowerCase().includes(searchQuery.toLowerCase())).sort((a, b) => {
-      const order = sortOrder === 'asc' ? 1 : -1;
-      return order * a.metadata.displayname.localeCompare(b.metadata.displayname);
-    });
-    setfilteredAndSortedFiles(f);
-  },[searchQuery]);
  
+    const filteredAndSortedFiles = () => {
+     files =  files.filter((file) => file.metadata && file.metadata.displayname.toLowerCase().includes(searchQuery.toLowerCase())).sort((a, b) => {
+        if(a.metadata === null || b.metadata == null){
+          return 0;
+        }
+        if(sortType === 'name'){
+          const aname = a.metadata.displayname;
+          const bname = b.metadata.displayname;
+          if (nameSortOrder === 'asc') {
+            return aname.localeCompare(bname);
+          } else {
+            return bname.localeCompare(aname);
+          }
+        } else {
+          if (dateSortOrder === 'asc') {
+            return new Date(a.uploadedAt) - new Date(b.uploadedAt);
+          } else {
+            return new Date(b.uploadedAt) - new Date(a.uploadedAt);
+          }
+        }
+      });
+    }
+ filteredAndSortedFiles();
+ useEffect(filteredAndSortedFiles,[searchQuery,sortType,nameSortOrder,dateSortOrder]);
 
   return (
     <Grid container
@@ -83,13 +107,13 @@ const FileList = ({ baseURL, files }) => {
       <Grid item xs={6}>
         <TextField id="outlined-basic" label="Search Templates" variant="outlined" fullWidth  onChange={handleSearchChange} />
       </Grid>
-      <Grid item xs={6}>
-        <Grid item xs={3}>
+        <Grid item xs={3 }>
+          <Button variant="outlined" color="primary"  fullWidth onClick={() => handleSortChange('name')}>Sort by Name {nameSortOrder === 'asc'? '(desc)': '(asc)'} </Button>
         </ Grid>
         <Grid item xs={3}>
+          <Button variant="outlined" color="primary"  fullWidth onClick={() => handleSortChange('date')}>Sort by Date {dateSortOrder === 'asc'? '(desc)': '(asc)'}</Button>
         </ Grid>
-      </Grid>
-      {filteredAndSortedFiles.map(file => (
+      {files.map(file => (
           <Grid item xs={4} key={file.name}>
           <ThumbnailBox>
             <Stack
