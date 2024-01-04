@@ -1,13 +1,15 @@
+import { ThemeProvider, createTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
+import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { createTheme, ThemeProvider, styled } from '@mui/material';
-
+import Footer from './Footer';
+import ShareButtons from './components/Sharebuttons';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
 const theme = createTheme({
   palette: {
     mode: 'dark',
@@ -22,7 +24,8 @@ const theme = createTheme({
     },
     background: {
       default: '#000000', // Black background
-    },
+      menus:   '#808080', // grey background
+    }
   },
   components: {
     MuiCard: {
@@ -37,9 +40,20 @@ const theme = createTheme({
 
 root.render(
   <React.StrictMode>
-     <ThemeProvider theme={theme}>
-         <App />
-     </ThemeProvider>
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: '100vh',
+        }}
+      >
+        <CssBaseline />   
+          <App />
+          <ShareButtons/>
+        <Footer />
+      </Box>
+    </ThemeProvider>
   </React.StrictMode>
 );
 
