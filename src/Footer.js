@@ -9,6 +9,7 @@ import { Stack } from '@mui/system';
 import { Grid } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Buymeacoffee from './components/Buymeacoffe';
 
 function Copyright() {
   return (
@@ -40,20 +41,21 @@ const Footer = () => {
             <Container maxWidth="lg">
                 <Grid container direction="row"
     justifyContent="space-between">
-                    <Grid item xs={12} md={4} lg={4} >
-                    <Stack direction="row" spacing={1} justifyContent="left">
+                    <Grid item xs={12} md={5} lg={5} >
+                    <Stack direction="row" spacing={1} justifyContent="left" alignItems='center'>
                     <Typography variant="body1">
-                        Created with ❤️ by Deepak Aitha
+                        Created by <strong>Deepak Aitha</strong>
                     </Typography>
                         <Link href="https://github.com/deepakavs" color="inherit" target="_blank" rel="noopener">
                         <GitHubIcon sx={{fontSize:'lg'}}/>
                             </Link>
                             <Link href="https://linkedin.com/in/deepakavs" color="inherit" target="_blank" rel="noopener">
                         <LinkedInIcon sx={{fontSize:'lg'}}/>
-                            </Link> 
+                            </Link>
+                            <Buymeacoffee/> 
                         </Stack>
                     </Grid>
-                    <Grid item xs={12} md={8} lg={8} >
+                    <Grid item xs={12} md={7} lg={7} >
                         <Stack direction="row" spacing={1} justifyContent="right">
                         <Copyright />
                         </Stack>
