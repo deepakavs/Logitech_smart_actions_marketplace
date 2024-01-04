@@ -8,7 +8,7 @@ import TaskAltIcon from '@mui/icons-material/TaskAlt';
 
 const App = () => {
   
-  const baseURL  = 'http://localhost:7071'
+  const baseURL  = 'http://smartactions-fffpa8d8fpc3amar.z03.azurefd.net';
   const [uploadedFiles, setUploadedFiles] = useState([]);
 
   // Fetch uploaded files from Azure Blob store

@@ -43,13 +43,13 @@ const Footer = () => {
                     <Grid item xs={12} md={4} lg={4} >
                     <Stack direction="row" spacing={1} justifyContent="left">
                     <Typography variant="body1">
-                        Created with ❤️ by <Typography sx={{ display: 'inline', fontWeight: 'bold' }}>Deepak Aitha</Typography> 
+                        Created with ❤️ by Deepak Aitha
                     </Typography>
                         <Link href="https://github.com/deepakavs" color="inherit" target="_blank" rel="noopener">
-                        <GitHubIcon Squared sx={{fontSize:'lg'}}/>
+                        <GitHubIcon sx={{fontSize:'lg'}}/>
                             </Link>
                             <Link href="https://linkedin.com/in/deepakavs" color="inherit" target="_blank" rel="noopener">
-                        <LinkedInIcon Squared sx={{fontSize:'lg'}}/>
+                        <LinkedInIcon sx={{fontSize:'lg'}}/>
                             </Link> 
                         </Stack>
                     </Grid>
