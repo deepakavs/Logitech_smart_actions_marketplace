@@ -122,7 +122,7 @@ const FileList = ({ baseURL, files }) => {
               alignItems="center"
               spacing={5}>
                 <IconMenu>
-              <IconSet>
+              {/* <IconSet>
                 <WhiteIconButton>
                     <CloudDownload />
                 </WhiteIconButton>
@@ -137,7 +137,7 @@ const FileList = ({ baseURL, files }) => {
                   <Favorite />
                 </WhiteIconButton>
                 <Typography variant="caption">123</Typography>
-              </IconSet>
+              </IconSet> */}
             </IconMenu>
             <Card>     
             <Typography variant="h6" align="center" fontWeight="bold">
