@@ -28,27 +28,23 @@ const Footer = () => {
         <Box
             component="footer"
             sx={{
-                py: 3,
+                py: 2,
                 px: 2,
                 mt: 10,
                 position: 'sticky',
                 bottom: 0,
                 zIndex: 1000,
-               
                 backgroundColor: (theme) => theme.palette.primary.main,
             }}
         >
             <Container maxWidth="lg">
                 <Grid container direction="row"
     justifyContent="space-between">
-                    <Grid item xs={12} md={9} lg={9} >
+                    <Grid item xs={12} md={4} lg={4} >
+                    <Stack direction="row" spacing={1} justifyContent="left">
                     <Typography variant="body1">
                         Created with ❤️ by <Typography sx={{ display: 'inline', fontWeight: 'bold' }}>Deepak Aitha</Typography> 
                     </Typography>
-                    <Copyright />
-                    </Grid>
-                    <Grid item xs={12} md={3} lg={3} >
-                        <Stack direction="row" spacing={2} justifyContent="flex-end">
                         <Link href="https://github.com/deepakavs" color="inherit" target="_blank" rel="noopener">
                         <GitHubIcon Squared sx={{fontSize:'lg'}}/>
                             </Link>
@@ -56,7 +52,11 @@ const Footer = () => {
                         <LinkedInIcon Squared sx={{fontSize:'lg'}}/>
                             </Link> 
                         </Stack>
-  
+                    </Grid>
+                    <Grid item xs={12} md={8} lg={8} >
+                        <Stack direction="row" spacing={1} justifyContent="right">
+                        <Copyright />
+                        </Stack>
                     </Grid>
                 </Grid>
                 
