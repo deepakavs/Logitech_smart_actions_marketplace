@@ -144,7 +144,7 @@ const FileList = ({ baseURL, files }) => {
                 {file.metadata && file.metadata.displayname}
               </Typography>
             </Card>
-              <Button href={`${downloadBaseUrl}/${file.name}`} color="secondary" variant='outlined'
+              <Button href={`${downloadBaseUrl}?key=${file.name}`} color="secondary" variant='outlined'
               style={{marginBottom:'1px'}}>
                     <Typography>Get</Typography>
                 </Button>
