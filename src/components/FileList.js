@@ -114,7 +114,7 @@ const FileList = ({ baseURL, files }) => {
           <Button variant="outlined" color="primary"  fullWidth onClick={() => handleSortChange('date')}>Sort by Date {dateSortOrder === 'asc'? '(desc)': '(asc)'}</Button>
         </ Grid>
       {files.map(file => (
-          <Grid item xs={4} key={file.name}>
+          <Grid item xs={12} md={4} lg={3} key={file.name}>
           <ThumbnailBox>
             <Stack
               direction="column"
