@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {Box, Button, Container, CssBaseline, Grid, Icon, Item,Typography } from '@mui/material';
+import {Box,AppBar, Toolbar, Button, Container, CssBaseline, Grid, Icon, Item,Typography } from '@mui/material';
 import FileUpload from './components/FileUpload';
 import FileList from './components/FileList';
 import axios from 'axios';
@@ -35,19 +35,21 @@ const App = () => {
 
 
   return (
-    <Container component="main" maxWidth="lg" style={{paddingTop:40}}>
+    <Container component="main" maxWidth="lg" style={{paddingTop:40}}   sx={{
+      py: 2,
+      px: 2,
+      mt: 10,
+  }}>
       <CssBaseline />
       <Grid container
   direction="column"
   justifyContent="space-between"
-  alignItems="center" spacing={2}>
+  alignItems="center" spacing={2 }>
         <Grid item xs={12}>
-        <Typography variant="h4" align="center" gutterBottom>
-       Logitech  <Typography color="primary" style={{display:'inline', fontWeight:'bold', fontFamily: "'Noto Sans KR', sans-serif"}}> <TaskAltIcon fontSize="large"/> SMART ACTIONS</Typography> Templates
-      </Typography>
+          <Typography variant="h5" align="center" style={{display:'inline'}} gutterBottom>A place to share / exchange your creative templates from Logitech Options+ software </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h6" align="center" style={{display:'inline'}} gutterBottom>What are Smart Actions?   </Typography>
+          <Typography variant="body" align="center" style={{display:'inline'}} gutterBottom>New to Smart Actions?   </Typography>
           <Button variant="contained" color="primary" href="https://youtu.be/pPgJ7Ot8vFA" target="_blank" rel="noopener">
             Watch video here
           </Button>

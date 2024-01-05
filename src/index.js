@@ -8,7 +8,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Footer from './Footer';
 import ShareButtons from './components/Sharebuttons';
-
+import Header from './components/Header';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const theme = createTheme({
   palette: {
@@ -48,7 +48,8 @@ root.render(
           minHeight: '100vh',
         }}
       >
-        <CssBaseline />   
+        <CssBaseline />  
+        <Header/>
           <App />
           <ShareButtons/>
         <Footer />
